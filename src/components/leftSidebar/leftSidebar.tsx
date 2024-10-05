@@ -1,5 +1,6 @@
 import Image from "next/image"
 import { ModeToggle } from "@/components/ui/darkmode/modeToggle"
+import Link from "next/link"
 
 export default function LeftSidebar() {   
     return (    
@@ -16,18 +17,18 @@ export default function LeftSidebar() {
 
             <div className="pt-2 px-2 pb-80 border rounded-sm border-neutral-900 dark:border-white">
                 <ul>
-                    <li>
-                        Mapa
-                    </li>
-                    <li>
-                        Agua lluvia
-                    </li>
-                    <li>
-                        Agua de río
-                    </li>
-                    <li>
-                        Agua subterránea
-                    </li>
+                    <Link href={'/'}>
+                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Home</li>
+                    </Link>
+                    <Link href={'/water'}>
+                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Agua</li>
+                    </Link>
+                    <Link href={'/heatMap'}>
+                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Mapa de calor</li>
+                    </Link>
+                    <Link href={'/map'}>
+                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Mapa</li>
+                    </Link>
                 </ul>
             </div>
         </section>

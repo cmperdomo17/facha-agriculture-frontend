@@ -10,6 +10,9 @@ export default function Home() {
       <Link href={"/map"}>
         <Button>Mapa</Button>
       </Link>
+      <Link href={"/heatMap"}>
+        <Button>Mapa de calor</Button>
+      </Link>
     </section>
   )
 }
