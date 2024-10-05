@@ -1,9 +1,17 @@
+"use client";
+
 import Image from "next/image"
 import { ModeToggle } from "@/components/ui/darkmode/modeToggle"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 
-export default function LeftSidebar() {   
-    return (    
+export default function LeftSidebar() {
+    const pathname = usePathname();
+    const baseClass = "px-2 py-1 rounded-lg hover:bg-neutral-700/30";
+    const activeClass = "bg-neutral-700 hover:bg-neutral-700 text-white";
+
+    return (
+
         <section className="p-2 flex flex-col gap-6">
             <div className="flex gap-4 justify-center items-center">
                 <Image
@@ -15,21 +23,19 @@ export default function LeftSidebar() {
                 <ModeToggle />
             </div>
 
-            <div className="pt-2 px-2 pb-80 border rounded-sm border-neutral-900 dark:border-white">
-                <ul>
-                    <Link href={'/'}>
-                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Home</li>
-                    </Link>
-                    <Link href={'/water'}>
-                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Agua</li>
-                    </Link>
-                    <Link href={'/heatMap'}>
-                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Mapa de calor</li>
-                    </Link>
-                    <Link href={'/map'}>
-                        <li className="text-lg font-extrabold hover:underline text-neutral-900 dark:text-white">Mapa</li>
-                    </Link>
-                </ul>
+            <div className="flex flex-col gap-4 pt-2 px-2 pb-80 rounded-sm">
+                <Link href={'/'} className={`${baseClass} ${pathname === '/' ? activeClass : ''}`}>
+                    <button className="text-lg font-extrabold dark:text-white">Home</button>
+                </Link>
+                <Link href={'/water'} className={`${baseClass} ${pathname === '/water' ? activeClass : ''}`}>
+                    <button className="text-lg font-extrabold dark:text-white">Agua</button>
+                </Link>
+                <Link href={'/heatMap'} className={`${baseClass} ${pathname === '/heatMap' ? activeClass : ''}`}>
+                    <button className="text-lg font-extrabold dark:text-white">Mapa de calor</button>
+                </Link>
+                <Link href={'/map'} className={`${baseClass} ${pathname === '/map' ? activeClass : ''}`}>
+                    <button className="text-lg font-extrabold dark:text-white">Mapa</button>
+                </Link>
             </div>
         </section>
     )
