@@ -1,14 +1,19 @@
+import { Button } from "@/components/ui/button"
+import Link from "next/link"
+
 export default function Map () {
     return (
-        <main>
+        <main className="flex flex-col gap-6">
             <h1 className="text-4xl font-black">
                 MAPA
             </h1>
-            <p className="text-sm pt-10">
-                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Error quam accusantium doloremque fugit ut asperiores aperiam maiores, inventore, blanditiis accusamus optio pariatur vel cupiditate illum! Quaerat odit unde omnis non?
-                Ea odio, quod nam dolor fugiat eum quo, est necessitatibus consequuntur assumenda vero nemo, nostrum non accusantium laudantium perspiciatis velit in! Voluptas repellendus voluptate consectetur non quo ipsum assumenda eligendi.
-                Error vero mollitia, reiciendis beatae voluptas accusantium, ratione dolore, deleniti commodi et illum laborum nostrum labore placeat. Magnam sint adipisci illo voluptatem qui, rerum, commodi deleniti fugiat officiis, cum pariatur!
+            <p className="text-sm">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Praesentium neque corrupti ullam numquam reiciendis architecto pariatur, beatae dolore quisquam rem illum exercitationem non explicabo corporis eveniet, soluta, quos recusandae officia?
+                Cum beatae quos ipsum perspiciatis aut eos rerum sint nobis quaerat impedit! Minus dolorum optio id, veniam, voluptate sapiente magnam commodi voluptatibus iure tempora voluptates accusamus error recusandae. Ut, est.
             </p>
+            <Link href={"/"}>
+                <Button>Regresar</Button>
+            </Link>
         </main>
     )
 }
