@@ -25,16 +25,16 @@ export default function LeftSidebar() {
 
             <div className="flex flex-col gap-4 pt-2 px-2 pb-80 rounded-sm">
                 <Link href={'/'} className={`${baseClass} ${pathname === '/' ? activeClass : ''}`}>
-                    <button className="text-lg font-extrabold dark:text-white">Home</button>
+                    <button className="dark:text-white">Home</button>
                 </Link>
                 <Link href={'/water'} className={`${baseClass} ${pathname === '/water' ? activeClass : ''}`}>
-                    <button className="text-lg font-extrabold dark:text-white">Agua</button>
+                    <button className="dark:text-white">Agua</button>
                 </Link>
                 <Link href={'/heatMap'} className={`${baseClass} ${pathname === '/heatMap' ? activeClass : ''}`}>
-                    <button className="text-lg font-extrabold dark:text-white">Mapa de calor</button>
+                    <button className="dark:text-white">Mapa de calor</button>
                 </Link>
                 <Link href={'/map'} className={`${baseClass} ${pathname === '/map' ? activeClass : ''}`}>
-                    <button className="text-lg font-extrabold dark:text-white">Mapa</button>
+                    <button className="dark:text-white">Mapa</button>
                 </Link>
             </div>
         </section>

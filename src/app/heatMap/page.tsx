@@ -6,6 +6,8 @@ import 'leaflet.heat';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import MarkerIcon from 'facha-agriculture-frontend/node_modules/leaflet/dist/images/marker-icon.png';
 import MarkerShadow from 'facha-agriculture-frontend/node_modules/leaflet/dist/images/marker-shadow.png';
@@ -13,28 +15,42 @@ import MarkerShadow from 'facha-agriculture-frontend/node_modules/leaflet/dist/i
 const HeatLayer = ({ points }: { points: [number, number, number][] }) => {
     const map = useMap();
 
-    L.heatLayer(points, { radius: 40 }).addTo(map);
+    L.heatLayer(points, { radius: 30 }).addTo(map);
 
     return null;
 };
 
 export default function Map() {
+    const [heatPoints, setHeatPoints] = useState<[number, number, number][]>([]);
     const coord: [number, number] = [2.43823, -76.61316];
 
-    // Ejemplo de puntos de calor: [latitud, longitud, intensidad]
-    const heatPoints: [number, number, number][] = [
-        [2.43823, -76.61316, 0.5],
-        [2.43850, -76.61350, 0.8],
-        [2.43870, -76.61370, 0.3],
-        [2.43880, -76.61380, 0.7],
-        [2.43890, -76.61390, 0.2],
-        [2.43900, -76.61400, 0.6],
-        [2.43910, -76.61410, 0.1],
-        [2.43920, -76.61420, 0.9],
-        [2.43930, -76.61430, 0.4],
-        [2.43940, -76.61440, 0.8],
-        [2.43950, -76.61450, 0.3],
-    ];
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.post('https://fachaagricultureapi.onrender.com/heat_data', {
+                    start_date: "2024-09-09",
+                    interval_hours: 12,
+                    end_interval_days: 10,
+                    north_latitude: 3.5,
+                    west_longitude: -78.5,
+                    south_latitude: 1.5,
+                    east_longitude: -75.5,
+                    latitude_resolution: 0.5,
+                    longitude_resolution: 0.5
+                });
+                
+                const data = response.data.data;
+
+                // [lat, lon, intensidad]
+                const points = data.map((item: { lat: number, lon: number, 't_2m:C': number }) => [item.lat, item.lon, item['t_2m:C']]);
+                setHeatPoints(points);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <div className='flex flex-col gap-6'>
@@ -65,9 +81,9 @@ export default function Map() {
                         shadowSize: [41, 41],
                         
                     })
-                } position={[51.505, -0.09]}>
+                } position={coord}>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
+                        Un marcador de ejemplo.
                     </Popup>
                 </Marker>
             </MapContainer>
