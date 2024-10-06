@@ -7,9 +7,9 @@ const Marker = dynamic(() => import('react-leaflet').then((mod) => mod.Marker), 
 const Popup = dynamic(() => import('react-leaflet').then((mod) => mod.Popup), { ssr: false });
 
 import 'leaflet/dist/leaflet.css';
-import MarkerIcon from 'facha-agriculture-frontend/node_modules/leaflet/dist/images/marker-icon.png';
-import MarkerShadow from 'facha-agriculture-frontend/node_modules/leaflet/dist/images/marker-shadow.png';
-const HeatLayer = dynamic(() => import('./heatLayer').then((mod) => mod.default), { ssr: false });
+import MarkerIcon from '../../../public/marker-icon.png';
+import MarkerShadow from '../../../public/marker-shadow.png';
+const HeatLayer = dynamic(() => import('./HeatLayer').then((mod) => mod.default), { ssr: false });
 
 const MapComponent = ({ heatPoints }: { heatPoints: [number, number, number][] }) => {
     const [L, setL] = useState<typeof import('leaflet') | null>(null);

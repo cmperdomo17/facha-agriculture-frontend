@@ -9,7 +9,7 @@ const HeatLayer = ({ points }: { points: [number, number, number][] }) => {
     useEffect(() => {
         if (!map) return;
 
-        const heat = L.heatLayer(points, { radius: 30 }).addTo(map);
+        const heat = L.heatLayer(points, { radius: 100 }).addTo(map);
 
         return () => {
             map.removeLayer(heat);

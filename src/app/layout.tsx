@@ -1,8 +1,15 @@
-import { onest } from "./utils/fonts/fonts";
+import { Onest } from 'next/font/google';
 import { ThemeProvider } from "@/components/ui/darkmode/theme-provider";
 import "./globals.css";
 import LeftSidebar from "@/components/leftSidebar/leftSidebar";
 import RightSidebar from "@/components/rightSidebar/rightSidebar";
+
+
+
+const onest = Onest({
+  subsets: ['latin'],
+  weight: ['400', '700'],
+});
 
 export default function RootLayout({
   children,
@@ -11,9 +18,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${onest.className} antialiased`}
-      >
+      <body 
+        className={`${onest?.className || ''} antialiased`}>
           <ThemeProvider
             attribute="class"
             defaultTheme="system"
