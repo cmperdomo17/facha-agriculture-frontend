@@ -1,28 +1,18 @@
 'use client'
 
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import 'leaflet.heat';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
+import axios from 'axios';
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useEffect, useState } from 'react';
-import axios from 'axios';
 
-import MarkerIcon from 'facha-agriculture-frontend/node_modules/leaflet/dist/images/marker-icon.png';
-import MarkerShadow from 'facha-agriculture-frontend/node_modules/leaflet/dist/images/marker-shadow.png';
-
-const HeatLayer = ({ points }: { points: [number, number, number][] }) => {
-    const map = useMap();
-
-    L.heatLayer(points, { radius: 30 }).addTo(map);
-
-    return null;
-};
+const MapComponent = dynamic(() => import('./MapComponent'), {
+    ssr: false,
+    loading: () => <p>Cargando mapa...</p>
+});
 
 export default function Map() {
     const [heatPoints, setHeatPoints] = useState<[number, number, number][]>([]);
-    const coord: [number, number] = [2.43823, -76.61316];
 
     useEffect(() => {
         const fetchData = async () => {
@@ -40,8 +30,6 @@ export default function Map() {
                 });
                 
                 const data = response.data.data;
-
-                // [lat, lon, intensidad]
                 const points = data.map((item: { lat: number, lon: number, 't_2m:C': number }) => [item.lat, item.lon, item['t_2m:C']]);
                 setHeatPoints(points);
             } catch (error) {
@@ -58,35 +46,8 @@ export default function Map() {
                 MAPA
             </h1>
 
-            <MapContainer style={{
-                width: "100%",
-                height: "400px",
-                borderRadius: "20px"
-            }} center={coord} zoom={14} scrollWheelZoom={false}>
+            <MapComponent heatPoints={heatPoints} />
 
-                <TileLayer
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                />
-
-                <HeatLayer points={heatPoints} />
-
-                <Marker icon={
-                    new L.Icon({
-                        iconUrl: MarkerIcon.src,
-                        iconRetinaUrl: MarkerIcon.src,
-                        iconSize: [25, 41],
-                        iconAnchor: [12.5, 41],
-                        popupAnchor: [0, -41],
-                        shadowUrl: MarkerShadow.src,
-                        shadowSize: [41, 41],
-                        
-                    })
-                } position={coord}>
-                    <Popup>
-                        Un marcador de ejemplo.
-                    </Popup>
-                </Marker>
-            </MapContainer>
             <Link href={"/"}>
                 <Button>Regresar</Button>
             </Link>
